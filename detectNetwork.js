@@ -23,6 +23,14 @@ var detectNetwork = function(cardNumber) {
       return 'American Express';
     }
   }
+  if(cardNumber.length === 16 || cardNumber.length === 18 || cardNumber.length === 19){
+    if(cardNumber.substring(0,4) === '4903' || cardNumber.substring(0,4) === '4905' || cardNumber.substring(0,4) === '4911' || cardNumber.substring(0,4) === '4936' || cardNumber.substring(0,4) === '6333' || cardNumber.substring(0,4) === '6759'){
+      return 'Switch';
+    }
+    if(cardNumber.substring(0,6) === '564182' || cardNumber.substring(0,6) === '633110'){
+      return 'Switch';
+    }
+  }
   if(cardNumber.length === 13 || cardNumber.length === 16 || cardNumber.length === 19){
     if(cardNumber[0] === '4'){
       return 'Visa';
@@ -56,6 +64,17 @@ var detectNetwork = function(cardNumber) {
   if(cardNumber.length >= 12 && cardNumber.length <= 19){
     if(cardNumber.substring(0,4) === '5018' || cardNumber.substring(0,4) === '5020' || cardNumber.substring(0,4) === '5038' || cardNumber.substring(0,4) === '6304'){
       return 'Maestro';
+    }
+  }
+  if(cardNumber.length >= 16 && cardNumber.length <= 19){
+    if(Number(cardNumber.substring(0,6)) >= 622126 && Number(cardNumber.substring(0,6)) <= 622925){
+      return 'China UnionPay';
+    }
+    if(Number(cardNumber.substring(0,3)) >= 624 && Number(cardNumber.substring(0,3)) <= 626){
+      return 'China UnionPay';
+    }
+    if(Number(cardNumber.substring(0,4)) >= 6282 && Number(cardNumber.substring(0,4)) <= 6288){
+      return 'China UnionPay';
     }
   }
   // Once you've read this, go ahead and try to implement this function, then return to the console.

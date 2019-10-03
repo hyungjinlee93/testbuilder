@@ -103,18 +103,18 @@ describe('MasterCard', function() {
   // Expect syntax is one way to do this, but there are others.
   // If you want to know more, check out the documentation.
   //   http://chaijs.com/api/bdd/
-  var expect = chai.expect;
+  var expect = chai.should();
 
   it('has a prefix of 51 and a length of 16', function() {
-    expect(detectNetwork('5112345678901234')).to.equal('MasterCard');
+    detectNetwork('5112345678901234').should.equal('MasterCard');
   });
 
   it('has a prefix of 52 and a length of 16', function() {
-    expect(detectNetwork('5212345678901234')).to.equal('MasterCard');
+    detectNetwork('5212345678901234').should.equal('MasterCard');
   });
 
   it('has a prefix of 53 and a length of 16', function() {
-    expect(detectNetwork('5312345678901234')).to.equal('MasterCard');
+    detectNetwork('5312345678901234').should.equal('MasterCard');
   });
 
 
@@ -184,6 +184,66 @@ describe('Maestro', function() {
     });
     it('has a prefix of 6304 and a length of '+i, function(){
       detectNetwork('6304'+extraSixteen.substring(0,i-4)).should.equal('Maestro');
+    });
+  }
+});
+
+describe('China UnionPay', function() {
+  // Write full test coverage for the China UnionPay card
+  var expect = chai.should();
+  let extraSixteen = '1234567890123456';
+  for(let i = 16; i <= 19; i++){
+    for(let j = 622126; j <= 622925; j++){
+      it('has a prefix of '+j+' and a length of '+i, function(){
+        detectNetwork(''+j+extraSixteen.substring(0,i-6)).should.equal('China UnionPay');
+      });
+    }
+  }
+  for(let i = 16; i <= 19; i++){
+    for(let j = 624; j <= 626; j++){
+      it('has a prefix of '+j+' and a length of '+i, function(){
+        detectNetwork(''+j+extraSixteen.substring(0,i-3)).should.equal('China UnionPay');
+      });
+    }
+  }
+  for(let i = 16; i <= 19; i++){
+    for(let j = 6282; j <= 6288; j++){
+      it('has a prefix of '+j+' and a length of '+i, function(){
+        detectNetwork(''+j+extraSixteen.substring(0,i-4)).should.equal('China UnionPay');
+      });
+    }
+  }
+});
+
+describe('Switch', function() {
+  // Write full test coverage for the China UnionPay card
+  var expect = chai.should();
+  let arrayLengths = [16, 18, 19];
+  let extraSixteen = '1234567890123456';
+  for(let i = 0; i < 3; i++){
+    it('has a prefix of 4903 and a length of '+arrayLengths[i], function() {
+      detectNetwork('4903'+extraSixteen.substring(0,arrayLengths[i]-4)).should.equal('Switch');
+    });
+    it('has a prefix of 4905 and a length of '+arrayLengths[i], function() {
+      detectNetwork('4905'+extraSixteen.substring(0,arrayLengths[i]-4)).should.equal('Switch');
+    });
+    it('has a prefix of 4911 and a length of '+arrayLengths[i], function() {
+      detectNetwork('4911'+extraSixteen.substring(0,arrayLengths[i]-4)).should.equal('Switch');
+    });
+    it('has a prefix of 4936 and a length of '+arrayLengths[i], function() {
+      detectNetwork('4936'+extraSixteen.substring(0,arrayLengths[i]-4)).should.equal('Switch');
+    });
+    it('has a prefix of 564182 and a length of '+arrayLengths[i], function() {
+      detectNetwork('564182'+extraSixteen.substring(0,arrayLengths[i]-6)).should.equal('Switch');
+    });
+    it('has a prefix of 633110 and a length of '+arrayLengths[i], function() {
+      detectNetwork('633110'+extraSixteen.substring(0,arrayLengths[i]-6)).should.equal('Switch');
+    });
+    it('has a prefix of 6333 and a length of '+arrayLengths[i], function() {
+      detectNetwork('6333'+extraSixteen.substring(0,arrayLengths[i]-4)).should.equal('Switch');
+    });
+    it('has a prefix of 6759 and a length of '+arrayLengths[i], function() {
+      detectNetwork('6759'+extraSixteen.substring(0,arrayLengths[i]-4)).should.equal('Switch');
     });
   }
 });
