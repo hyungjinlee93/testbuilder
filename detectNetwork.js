@@ -28,9 +28,20 @@ var detectNetwork = function(cardNumber) {
   }
   if(cardNumber.length === 16){
     let firstTwo = cardNumber[0] + cardNumber[1];
+    let firstFour = cardNumber[0] + cardNumber[1] + cardNumber[2] + cardNumber[3];
     if(firstTwo === '51' || firstTwo === '52' || firstTwo === '53' || firstTwo === '54' || firstTwo == '55'){
       return 'MasterCard';
     }
+    if(firstFour === '6011'){
+      return 'Discover';
+    }
   }
+  if(cardNumber.length === 19){
+    let firstFour = cardNumber[0] + cardNumber[1] + cardNumber[2] + cardNumber[3];
+    if(firstFour === '6011'){
+      return 'Discover';
+    }
+  }
+
   // Once you've read this, go ahead and try to implement this function, then return to the console.
 };
