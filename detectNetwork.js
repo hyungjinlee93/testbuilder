@@ -14,12 +14,12 @@ var detectNetwork = function(cardNumber) {
   // Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
   // Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.
   if(cardNumber.length === 14){
-    if((cardNumber[0] + cardNumber[1]) === '38' || (cardNumber[0] + cardNumber[1]) === '39'){
+    if(cardNumber.substring(0,2) === '38' || cardNumber.substring(0,2) === '39'){
       return 'Diner\'s Club';
     }
   }
   if(cardNumber.length === 15){
-    if((cardNumber[0] + cardNumber[1]) === '34' || (cardNumber[0] + cardNumber[1]) === '37'){
+    if(cardNumber.substring(0,2) === '34' || cardNumber.substring(0,2) === '37'){
       return 'American Express';
     }
   }
@@ -29,31 +29,32 @@ var detectNetwork = function(cardNumber) {
     }
   }
   if(cardNumber.length === 16){
-    let firstTwo = cardNumber[0] + cardNumber[1];
-    let firstThree = cardNumber[0] + cardNumber[1] + cardNumber[2];
-    let firstFour = cardNumber[0] + cardNumber[1] + cardNumber[2] + cardNumber[3];
-    if(firstTwo === '51' || firstTwo === '52' || firstTwo === '53' || firstTwo === '54' || firstTwo == '55'){
+    if(cardNumber.substring(0,2) === '51' || cardNumber.substring(0,2) === '52' || cardNumber.substring(0,2) === '53' || cardNumber.substring(0,2) === '54' || cardNumber.substring(0,2) == '55'){
       return 'MasterCard';
     }
-    if(firstFour === '6011'){
+    if(cardNumber.substring(0,4) === '6011'){
       return 'Discover';
     }
-    if(Number(firstThree) >= 644 && Number(firstThree) <= 649){
+    if(Number(cardNumber.substring(0,3)) >= 644 && Number(cardNumber.substring(0,3)) <= 649){
       return 'Discover';
     }
-    if(firstTwo === '65'){
+    if(cardNumber.substring(0,2) === '65'){
       return 'Discover';
     }
   }
   if(cardNumber.length === 19){
-    let firstFour = cardNumber[0] + cardNumber[1] + cardNumber[2] + cardNumber[3];
-    if(firstFour === '6011'){
+    if(cardNumber.substring(0,4) === '6011'){
+      return 'Discover';
+    }
+    if(Number(cardNumber.substring(0,3)) >= 644 && Number(cardNumber.substring(0,3)) <= 649){
+      return 'Discover';
+    }
+    if(cardNumber.substring(0,2) === '65'){
       return 'Discover';
     }
   }
-  if(cardNumber.length <= 19 && cardNumber.length >= 12){
-    let firstFour = cardNumber[0] + cardNumber[1] + cardNumber[2] + cardNumber[3];
-    if(firstFour === '5018' || firstFour === '5020' || firstFour === '5038' || firstFour === '6304'){
+  if(cardNumber.length >= 12 && cardNumber.length <= 19){
+    if(cardNumber.substring(0,4) === '5018' || cardNumber.substring(0,4) === '5020' || cardNumber.substring(0,4) === '5038' || cardNumber.substring(0,4) === '6304'){
       return 'Maestro';
     }
   }
