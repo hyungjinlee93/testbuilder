@@ -11,6 +11,8 @@ var detectNetwork = function(cardNumber) {
   // Note: `cardNumber` will always be a string
   // The Diner's Club network always starts with a 38 or 39 and is 14 digits long
   // The American Express network always starts with a 34 or 37 and is 15 digits long
+  // Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
+  // Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.
   if(cardNumber.length === 14){
     if((cardNumber[0] + cardNumber[1]) === '38' || (cardNumber[0] + cardNumber[1]) === '39'){
       return 'Diner\'s Club';
@@ -28,11 +30,18 @@ var detectNetwork = function(cardNumber) {
   }
   if(cardNumber.length === 16){
     let firstTwo = cardNumber[0] + cardNumber[1];
+    let firstThree = cardNumber[0] + cardNumber[1] + cardNumber[2];
     let firstFour = cardNumber[0] + cardNumber[1] + cardNumber[2] + cardNumber[3];
     if(firstTwo === '51' || firstTwo === '52' || firstTwo === '53' || firstTwo === '54' || firstTwo == '55'){
       return 'MasterCard';
     }
     if(firstFour === '6011'){
+      return 'Discover';
+    }
+    if(Number(firstThree) >= 644 && Number(firstThree) <= 649){
+      return 'Discover';
+    }
+    if(firstTwo === '65'){
       return 'Discover';
     }
   }
