@@ -42,6 +42,11 @@ var detectNetwork = function(cardNumber) {
       return 'Discover';
     }
   }
-
+  if(cardNumber.length <= 19 && cardNumber.length >= 12){
+    let firstFour = cardNumber[0] + cardNumber[1] + cardNumber[2] + cardNumber[3];
+    if(firstFour === '5018' || firstFour === '5020' || firstFour === '5038' || firstFour === '6304'){
+      return 'Maestro';
+    }
+  }
   // Once you've read this, go ahead and try to implement this function, then return to the console.
 };
